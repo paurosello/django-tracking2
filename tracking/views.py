@@ -40,13 +40,13 @@ def stats(request):
     start_date, end_date = None, None
 
     try:
-        start_str = str(datetime.date.today())
+        start_str = request.GET.get('start', str(datetime.date.today()))
         start_date = parse_partial_date(start_str)
     except (ValueError, TypeError):
         errors.append('<code>{0}</code> is not a valid start date'.format(start_str))
 
     try:
-        end_str = str(datetime.date.today())
+        end_str = request.GET.get('end', str(datetime.date.today()))
         end_date = parse_partial_date(end_str, upper=True)
     except (ValueError, TypeError):
         errors.append('<code>{0}</code> is not a valid end date'.format(end_str))
